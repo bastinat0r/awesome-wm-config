@@ -37,7 +37,7 @@ customization.config.version = "1.5.19"
 customization.config.help_url = "https://github.com/pw4ever/awesome-wm-config/tree/" .. customization.config.version
 
 customization.default.property = {
-    layout = awful.layout.suit.floating,
+    layout = awful.layout.suit.tile,
     mwfact = 0.5,
     nmaster = 1,
     ncol = 1,
@@ -50,7 +50,7 @@ customization.default.property = {
 }
 
 customization.default.compmgr = 'xcompmgr'
-customization.default.wallpaper_change_interval = 15
+customization.default.wallpaper_change_interval = 150
 
 customization.option.wallpaper_change_p = true
 
@@ -233,7 +233,7 @@ end
 
 --{{
 local tools = {
-    terminal = "sakura",
+    terminal = "terminology",
     system = {
         filemanager = "pcmanfm",
     },
@@ -243,8 +243,8 @@ local tools = {
     },
 }
 
-tools.browser.primary = os.getenv("BROWSER") or "chromium"
-tools.browser.secondary = ({chromium="firefox", firefox="chromium"})[tools.browser.primary]
+tools.browser.primary = os.getenv("BROWSER") or "opera"
+tools.browser.secondary = ({chromium="opera", opera="chromium"})[tools.browser.primary]
 tools.editor.primary = os.getenv("EDITOR") or "gvim"
 tools.editor.secondary = ({emacs="gvim", gvim="emacs"})[tools.editor.primary]
 
@@ -342,7 +342,7 @@ menu = mymainmenu })
 mytextclock = wibox.widget.textbox()
 
 -- http://awesome.naquadah.org/wiki/Bashets
-bashets.register("date.sh", {widget=mytextclock, update_time=1, format="$1 <span fgcolor='red'>$2</span> <small>$3$4</small> <b>$5<small>$6</small></b>"})
+bashets.register("date.sh", {widget=mytextclock, update_time=1, format="<small>$1</small> $2 <span fgcolor='red'><b>$3</b></span>"})
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -506,6 +506,75 @@ do
             ncol = customization.default.property.ncol, 
         } 
         )
+				awful.tag.add("shell",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        })
+				awful.tag.add("bowser",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        }) 
+				awful.tag.add("thunderbird",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        }) 
+				awful.tag.add("foo",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        }) 
+				awful.tag.add("bar",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        }) 
+				awful.tag.add("baz",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        }) 
+
+				awful.tag.add("irc",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        }) 
+				awful.tag.add("chat",
+        {
+            screen = 1,
+            layout = customization.default.property.layout,
+            mwfact = customization.default.property.mwfact,
+            nmaster = customization.default.property.nmaster,
+            ncol = customization.default.property.ncol, 
+        } 
+        )
+
+
+
         awful.tag.viewonly(tag)
 
         awful.tag.add("nil",
@@ -589,7 +658,7 @@ function ()
     awful.util.spawn_with_shell(tools.browser.primary .. " '" .. customization.config.help_url .. "'")
 end),
 
---- Layout
+--- layout
 
 awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
 
@@ -605,7 +674,7 @@ awful.key({ modkey,           }, "o", awful.client.movetoscreen),
 
 --- misc
 
-awful.key({modkey}, "F2", function()
+awful.key({modkey}, "r", function()
     awful.prompt.run(
     {prompt = "Run: "},
     mypromptbox[mouse.screen].widget,
@@ -1501,8 +1570,42 @@ awful.rules.rules = {
             sticky = true,
             opacity = 0.4,
         },
-    }
-
+    },
+    {
+        rule_any = { class = {"psi", "Psi" }},
+        properties = {
+						tag = awful.tag.gettags(1)[9],
+						floating = true,
+        }
+    },
+    {
+        rule_any = { class = {"quasselclient", "quassel" }},
+        properties = {
+						tag = awful.tag.gettags(1)[8],
+						floating = true,
+        }
+    },
+    {
+        rule_any = { class = {"opera", "Opera" }},
+        properties = {
+						tag = awful.tag.gettags(1)[3],
+						switchtotag = true,
+						floating = true,
+        }
+    },
+    {
+        rule_any = { class = {"Mail", "Thunderbird" }},
+        properties = {
+						tag = awful.tag.gettags(1)[4],
+						floating = true,
+        }
+    },
+    {
+        rule_any = { class = {"Evince", "evince" }},
+        properties = {
+						floating = true,
+        }
+    },
 }
 -- }}}
 
