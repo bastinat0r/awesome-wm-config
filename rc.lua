@@ -245,8 +245,8 @@ local tools = {
 
 tools.browser.primary = os.getenv("BROWSER") or "opera"
 tools.browser.secondary = ({chromium="opera", opera="chromium"})[tools.browser.primary]
-tools.editor.primary = os.getenv("EDITOR") or "gvim"
-tools.editor.secondary = ({emacs="gvim", gvim="emacs"})[tools.editor.primary]
+tools.editor.primary = os.getenv("EDITOR") or "gvim -u .vimrc"
+-- tools.editor.secondary = ({emacs="gvim", gvim="emacs"})[tools.editor.primary]
 
 local myapp = nil
 do
@@ -522,7 +522,7 @@ do
             nmaster = customization.default.property.nmaster,
             ncol = customization.default.property.ncol, 
         }) 
-				awful.tag.add("thunderbird",
+				awful.tag.add("mail",
         {
             screen = 1,
             layout = customization.default.property.layout,
@@ -674,7 +674,7 @@ awful.key({ modkey,           }, "o", awful.client.movetoscreen),
 
 --- misc
 
-awful.key({modkey}, "r", function()
+awful.key({modkey}, "F2", function()
     awful.prompt.run(
     {prompt = "Run: "},
     mypromptbox[mouse.screen].widget,
@@ -699,6 +699,9 @@ end),
 
 awful.key({ modkey }, "c", function () 
     awful.util.spawn(tools.editor.primary .. " " .. awful.util.getdir("config") .. "/rc.lua" )
+end),
+awful.key({ modkey }, "r", function () 
+    awful.util.spawn( "yegonesh" )
 end),
 
 awful.key({modkey,}, "/", function() mymainmenu:toggle({keygrabber=true}) end),
@@ -1575,7 +1578,6 @@ awful.rules.rules = {
         rule_any = { class = {"psi", "Psi" }},
         properties = {
 						tag = awful.tag.gettags(1)[9],
-						floating = true,
         }
     },
     {
@@ -1587,6 +1589,14 @@ awful.rules.rules = {
     },
     {
         rule_any = { class = {"opera", "Opera" }},
+        properties = {
+						tag = awful.tag.gettags(1)[3],
+						switchtotag = true,
+						floating = true,
+        }
+    },
+    {
+        rule = { class = "chromium" },
         properties = {
 						tag = awful.tag.gettags(1)[3],
 						switchtotag = true,
