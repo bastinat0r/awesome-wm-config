@@ -1606,8 +1606,7 @@ awful.rules.rules = {
     {
         rule_any = { class = {"Mail", "Thunderbird" }},
         properties = {
-						tag = awful.tag.gettags(1)[4],
-						floating = true,
+						tag = awful.tag.gettags(1)[4]
         }
     },
     {
