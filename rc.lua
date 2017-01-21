@@ -233,7 +233,7 @@ end
 
 --{{
 local tools = {
-    terminal = "terminology",
+    terminal = "roxterm",
     system = {
         filemanager = "pcmanfm",
     },
@@ -1575,7 +1575,7 @@ awful.rules.rules = {
         },
     },
     {
-        rule_any = { class = {"psi", "Psi" }},
+        rule_any = { class = {"gajim", "Gajim" }},
         properties = {
 						tag = awful.tag.gettags(1)[9],
         }
